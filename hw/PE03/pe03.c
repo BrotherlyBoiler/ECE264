@@ -34,26 +34,37 @@ int main(int argc, char *argv[])
    // and the counter
 
    int answer = 0;  // you should store the guessed number in answer
+   int lb = atoi(argv[2]);  // lower bound
+   int ub = atoi(argv[3]);  // upper bound
 
    Initialize_counter();  // initialize the counter for recursion call
 
-   /* put in your code here */
+   // Check for insuffcient arguments
+   if (argc < 4)
+   {
+      return EXIT_FAILURE;
+   }
 
+   // Check if lower bound is larger than upper bound
+   if (lb < up)
+   {
+      return EXIT_FAILURE;
+   }
 
+   // Determine whether to use recursive or iterative method
+   if (argv[1][0] == '-' && argv[1][1] == 'r') // recursive
+   {
+      answer = mind_guessing_rec(lb, ub);
+   }
+   else if (argv[1][0] == '-' && argv[1][1] == 'i') // iterative
+   {
+      answer = mind_guessing_iter(lb, ub);
+   }
+   else
+   {
+      return EXIT_FAILURE;
+   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-   /* put in your code above this line */
    // print the guessed number, keep this
 
    printf("%d\n", answer);

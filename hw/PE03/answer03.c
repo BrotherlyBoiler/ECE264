@@ -46,15 +46,15 @@ int mind_guessing_rec(int lb, int ub)
     // if answer == 'N' , do something, else do something else
 
     if (answer == 'N') { /* don't change this */
-      return mind_guessing_rec(lb, ub / 2);
+      return mind_guessing_rec(lb, mid - 1);
 
     } else { /* don't change this */
-      return mind_guessing_rec(ub / 2, ub);
+      return mind_guessing_rec(mid + 1, ub);
     }
   }
 
-  return 0;  // this is put in so that it would compile 
-             //you should change it to something else
+  return mid;  // this is put in so that it would compile 
+             // you should change it to something else
 }
 
 // iterative implementation of the mind_guessing game
@@ -72,10 +72,10 @@ int mind_guessing_itr(int lb, int ub)
   // use the same method to get an input from stdin to the question
   // update lb and ub according to the answer
 
-  // while (.....) {  // fill the right condition and remove comment
+   while (lb <= up) {  // fill the right condition and remove comment
      // compute mid
 
-     mid = lb;  // this is put in for compilation.  You would have to change it.
+     mid = (lb + ub) / 2;  // this is put in for compilation.  You would have to change it.
 
   
      // ask the question
@@ -90,14 +90,14 @@ int mind_guessing_itr(int lb, int ub)
      // update lb and ub based on the answer
 
      if (answer == 'N') { /* don't change this */
-        /* add something here */
+        ub = mid - 1;
 
      } else { /* don't change this */
-        /* add something here */
+        lb = mid + 1;
 
      }
 
-  // } // end of while (....), remove comment
-  return lb;  // this is put in for compilation.  You may have to change it
+   } // end of while (....), remove comment
+  return mid;  // this is put in for compilation.  You may have to change it
 }
 
