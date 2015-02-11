@@ -1,0 +1,81 @@
+==3721== Memcheck, a memory error detector
+==3721== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==3721== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==3721== Command: ./pa01
+==3721== Parent PID: 6076
+==3721== 
+--3721-- 
+--3721-- Valgrind options:
+--3721--    --tool=memcheck
+--3721--    --leak-check=full
+--3721--    --verbose
+--3721--    --log-file=memcheck.log
+--3721-- Contents of /proc/version:
+--3721--   Linux version 3.13.0-34-generic (buildd@allspice) (gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1) ) #60-Ubuntu SMP Wed Aug 13 15:45:27 UTC 2014
+--3721-- Arch and hwcaps: AMD64, amd64-cx16-rdtscp-sse3-avx
+--3721-- Page sizes: currently 4096, max supported 4096
+--3721-- Valgrind library directory: /usr/lib/valgrind
+--3721-- Reading syms from /home/parallels/ECE264/problems/PA01/pa01
+--3721-- Reading syms from /lib/x86_64-linux-gnu/ld-2.19.so
+--3721--   Considering /lib/x86_64-linux-gnu/ld-2.19.so ..
+--3721--   .. CRC mismatch (computed 4cbae35e wanted 8d683c31)
+--3721--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.19.so ..
+--3721--   .. CRC is valid
+--3721-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--3721--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--3721--   .. CRC mismatch (computed 37cdde19 wanted adc367dd)
+--3721--    object doesn't have a symbol table
+--3721--    object doesn't have a dynamic symbol table
+--3721-- Scheduler: using generic scheduler lock implementation.
+--3721-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==3721== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-3721-by-parallels-on-???
+==3721== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-3721-by-parallels-on-???
+==3721== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-3721-by-parallels-on-???
+==3721== 
+==3721== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==3721== don't want to do, unless you know exactly what you're doing,
+==3721== or are doing some strange experiment):
+==3721==   /usr/lib/valgrind/../../bin/vgdb --pid=3721 ...command...
+==3721== 
+==3721== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==3721==   /path/to/gdb ./pa01
+==3721== and then give GDB the following command
+==3721==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=3721
+==3721== --pid is optional if only one valgrind process is running
+==3721== 
+--3721-- REDIR: 0x4019ca0 (strlen) redirected to 0x38068331 (???)
+--3721-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--3721--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--3721--   .. CRC mismatch (computed 329d6860 wanted c0186920)
+--3721--    object doesn't have a symbol table
+--3721-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--3721--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--3721--   .. CRC mismatch (computed 1fb85af8 wanted 2e9e3c16)
+--3721--    object doesn't have a symbol table
+==3721== WARNING: new redirection conflicts with existing -- ignoring it
+--3721--     old: 0x04019ca0 (strlen              ) R-> (0000.0) 0x38068331 ???
+--3721--     new: 0x04019ca0 (strlen              ) R-> (2007.0) 0x04c2e1a0 strlen
+--3721-- REDIR: 0x4019a50 (index) redirected to 0x4c2dd50 (index)
+--3721-- REDIR: 0x4019c70 (strcmp) redirected to 0x4c2f2f0 (strcmp)
+--3721-- REDIR: 0x401a9c0 (mempcpy) redirected to 0x4c31da0 (mempcpy)
+--3721-- Reading syms from /lib/x86_64-linux-gnu/libc-2.19.so
+--3721--   Considering /lib/x86_64-linux-gnu/libc-2.19.so ..
+--3721--   .. CRC mismatch (computed bbba420d wanted a133d70e)
+--3721--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.19.so ..
+--3721--   .. CRC is valid
+--3721-- REDIR: 0x4ec4bb0 (strcasecmp) redirected to 0x4a25720 (_vgnU_ifunc_wrapper)
+--3721-- REDIR: 0x4ec6ea0 (strncasecmp) redirected to 0x4a25720 (_vgnU_ifunc_wrapper)
+--3721-- REDIR: 0x4ec4380 (memcpy@GLIBC_2.2.5) redirected to 0x4a25720 (_vgnU_ifunc_wrapper)
+--3721-- REDIR: 0x4ec2610 (rindex) redirected to 0x4c2da30 (rindex)
+--3721-- REDIR: 0x4ec0910 (strlen) redirected to 0x4c2e0e0 (strlen)
+--3721-- REDIR: 0x4ecb910 (strchrnul) redirected to 0x4c319b0 (strchrnul)
+--3721-- REDIR: 0x4ebac40 (free) redirected to 0x4c2bd80 (free)
+==3721== 
+==3721== HEAP SUMMARY:
+==3721==     in use at exit: 0 bytes in 0 blocks
+==3721==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==3721== 
+==3721== All heap blocks were freed -- no leaks are possible
+==3721== 
+==3721== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==3721== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
