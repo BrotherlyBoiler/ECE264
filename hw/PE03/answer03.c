@@ -14,10 +14,10 @@ int mind_guessing_rec(int lb, int ub)
 
   // write down the terminating condition
   // when lb is the same as ub, you have guessed correctly
-
-
-
-
+  if (lb == up)
+  {
+    return lb;
+  }
 
   char answer;    // this is for reading the input from the stdin
   int mid;        // this is for dividing the problem into two parts
@@ -31,9 +31,7 @@ int mind_guessing_rec(int lb, int ub)
 
   // compute mid
 
-  mid = lb;  // this is put in for compilation.  You would have to change it.
-
-
+  mid = (lb + ub) / 2;  // this is put in for compilation.  You would have to change it.
   
   // ask the question
   
@@ -42,17 +40,17 @@ int mind_guessing_rec(int lb, int ub)
   // get the answer from stdin, don't change this
 
   answer = getchar();
-  while (getchar() != '\n');
+  while (getchar() != '\n')
+  {
+    // do the recursive call based on the answer
+    // if answer == 'N' , do something, else do something else
 
-  // do the recursive call based on the answer
-  // if answer == 'N' , do something, else do something else
+    if (answer == 'N') { /* don't change this */
+      return mind_guessing_rec(lb, ub / 2);
 
-  if (answer == 'N') { /* don't change this */
-     /* add something here */
-
-  } else { /* don't change this */
-     /* add something here */
-
+    } else { /* don't change this */
+      return mind_guessing_rec(ub / 2, ub);
+    }
   }
 
   return 0;  // this is put in so that it would compile 
