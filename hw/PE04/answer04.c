@@ -17,16 +17,22 @@ void logFibonacci(int n, unsigned long *fn1, unsigned long *fn2)
   Increment_counter();
 
   // terminating condition
-
-
-
-
+  if (n == 0) return 0;
+  if (n == 1) return 1;
 
   // recursion
   // you have to halve n, 
   // depending on whether n/2 is even or odd, recursively
   // call logFibonacci with appropriate parameters
-
+  int m = n / 2;
+  if (m % 2 == 0)   // m is even
+  {
+    /* code */
+  }
+  else    // m is odd
+  {
+    /* code */
+  }
 
 
 
