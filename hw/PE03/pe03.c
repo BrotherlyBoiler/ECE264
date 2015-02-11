@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
    }
 
    // Check if lower bound is larger than upper bound
-   if (lb < ub) {
+   if (lb > ub) {
       return EXIT_FAILURE;
    }
 

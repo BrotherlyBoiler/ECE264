@@ -98,6 +98,6 @@ int mind_guessing_itr(int lb, int ub)
      }
 
    } // end of while (....), remove comment
-  return mid;  // this is put in for compilation.  You may have to change it
+  return lb;  // this is put in for compilation.  You may have to change it
 }
 
