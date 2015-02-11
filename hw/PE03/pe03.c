@@ -40,28 +40,23 @@ int main(int argc, char *argv[])
    Initialize_counter();  // initialize the counter for recursion call
 
    // Check for insuffcient arguments
-   if (argc < 4)
-   {
+   if (argc < 4) {
       return EXIT_FAILURE;
    }
 
    // Check if lower bound is larger than upper bound
-   if (lb < up)
-   {
+   if (lb < up) {
       return EXIT_FAILURE;
    }
 
    // Determine whether to use recursive or iterative method
-   if (argv[1][0] == '-' && argv[1][1] == 'r') // recursive
-   {
+   if (argv[1][0] == '-' && argv[1][1] == 'r') {  // recursive
       answer = mind_guessing_rec(lb, ub);
    }
-   else if (argv[1][0] == '-' && argv[1][1] == 'i') // iterative
-   {
+   else if (argv[1][0] == '-' && argv[1][1] == 'i') {}  // iterative
       answer = mind_guessing_iter(lb, ub);
-   }
-   else
-   {
+   } 
+   else {
       return EXIT_FAILURE;
    }
 
