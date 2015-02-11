@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
    }
 
    // Check if lower bound is larger than upper bound
-   if (lb < up) {
+   if (lb < ub) {
       return EXIT_FAILURE;
    }
 
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
       answer = mind_guessing_rec(lb, ub);
    }
    else if (argv[1][0] == '-' && argv[1][1] == 'i') {  // iterative
-      answer = mind_guessing_iter(lb, ub);
+      answer = mind_guessing_itr(lb, ub);
    } 
    else {
       return EXIT_FAILURE;

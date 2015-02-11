@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "utility.h"
+#include <stdio.h> 
+#include <stdlib.h> 
+#include "utility.h" 
 #include "answer03.h"
 
 // recursive implementation of the mind_guessing game
@@ -14,7 +14,7 @@ int mind_guessing_rec(int lb, int ub)
 
   // write down the terminating condition
   // when lb is the same as ub, you have guessed correctly
-  if (lb == up)
+  if (lb == ub)
   {
     return lb;
   }
@@ -72,7 +72,7 @@ int mind_guessing_itr(int lb, int ub)
   // use the same method to get an input from stdin to the question
   // update lb and ub according to the answer
 
-   while (lb <= up) {  // fill the right condition and remove comment
+   while (lb <= ub) {  // fill the right condition and remove comment
      // compute mid
 
      mid = (lb + ub) / 2;  // this is put in for compilation.  You would have to change it.
