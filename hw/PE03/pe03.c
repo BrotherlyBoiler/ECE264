@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
    if (argv[1][0] == '-' && argv[1][1] == 'r') {  // recursive
       answer = mind_guessing_rec(lb, ub);
    }
-   else if (argv[1][0] == '-' && argv[1][1] == 'i') {}  // iterative
+   else if (argv[1][0] == '-' && argv[1][1] == 'i') {  // iterative
       answer = mind_guessing_iter(lb, ub);
    } 
    else {
