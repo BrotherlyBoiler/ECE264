@@ -47,7 +47,7 @@ int mind_guessing_rec(int lb, int ub)
     // if answer == 'N' , do something, else do something else
 
     if (answer == 'N') { /* don't change this */
-       return mind_guessing_rec(lb, mid);
+    	return mind_guessing_rec(lb, mid);
     
     } else { /* don't change this */
 	return mind_guessing_rec(mid + 1, ub);
