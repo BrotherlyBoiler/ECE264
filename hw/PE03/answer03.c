@@ -31,6 +31,7 @@ int mind_guessing_rec(int lb, int ub)
 
   // compute mid
 
+  
   mid = (lb + ub) / 2;  // this is put in for compilation.  You would have to change it.
   
   // ask the question
@@ -40,20 +41,20 @@ int mind_guessing_rec(int lb, int ub)
   // get the answer from stdin, don't change this
 
   answer = getchar();
-  while (getchar() != '\n')
-  {
+  while (getchar() != '\n');
+
     // do the recursive call based on the answer
     // if answer == 'N' , do something, else do something else
 
     if (answer == 'N') { /* don't change this */
-      return mind_guessing_rec(lb, mid - 1);
-
+       return mind_guessing_rec(lb, mid);
+    
     } else { /* don't change this */
-      return mind_guessing_rec(mid + 1, ub);
+	return mind_guessing_rec(mid + 1, ub);
+     
     }
-  }
 
-  return mid;  // this is put in so that it would compile 
+  // return mid;  // this is put in so that it would compile 
              // you should change it to something else
 }
 
