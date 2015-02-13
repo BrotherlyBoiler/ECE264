@@ -25,15 +25,10 @@ void logFibonacci(int n, unsigned long *fn1, unsigned long *fn2)
   // depending on whether n/2 is even or odd, recursively
   // call logFibonacci with appropriate parameters
   int m = n / 2;
-  if (m % 2 == 0)   // m is even
+  if (m % 2 == 0)
   {
-    /* code */
+    
   }
-  else    // m is odd
-  {
-    /* code */
-  }
-
 
 
 
