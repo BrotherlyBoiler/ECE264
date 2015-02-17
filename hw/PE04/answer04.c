@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "utility.h"
 #include "answer04.h"
+#include <math.h>
 
 // do not remove #ifndef and #endif in this file, otherwise the evaluation
 // would fail and you would definitely get 0
@@ -25,17 +26,20 @@ void logFibonacci(int n, unsigned long *fn1, unsigned long *fn2)
   // depending on whether n/2 is even or odd, recursively
   // call logFibonacci with appropriate parameters
   int m = n / 2;
-  if (n % 2 == 0) {
+  if (n % 2 == 0) {	// m is even
      // F(n)
-    *fn1 = 2 * logFibonacci(m - 1, fn1, fn2) * logFibonacci(m, fn1, fn2) + logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
+    *fn1 += 2 * logFibonacci(m - 1, fn1, fn2) * logFibonacci(m, fn1, fn2)
+    *fn1 += pow(logFibonacci(m, fn1, fn2), 2);
     // F(n - 1)
-    *fn2 = logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2) + logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
-  } else {
-    // F(n)
-    *fn1 = 2 * logFibonacci(m - 1, fn1, fn2) * logFibonacci(m, fn1, fn2) + logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
+    *fn2 += pow(logFibonacci(m - 1, fn1, fn2), 2);
+	*fn2 += pow(logFibonacci(m, fn1, fn2), 2);
+  } else {	// m is odd
+  	// F(n)
+    *fn1 += 2 * logFibonacci(m - 2, fn1, fn2) * logFibonacci(m - 1, fn1, fn2)
+    *fn1 += pow(logFibonacci(m - 1, fn1, fn2), 2);
     // F(n - 1)
-    *fn2 = logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2) + logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
-  }
+    *fn2 += pow(logFibonacci(m - 2, fn1, fn2), 2);
+	*fn2 += pow(logFibonacci(m - 1, fn1, fn2), 2);
 }
 
 #endif
@@ -60,7 +64,7 @@ unsigned long Fibonacci(int n)
    /* if odd n, call with n-1 or n+1, combine fn1 and fn2 as F(n) */
    if (n % 2 == 0) {
      logFibonacci(n, *fn1, *fn2);
-     return fn1;
+     return *fn1;
    } else {
      logFibonacci(n - 1, *fn1, *fn2);
      return *fn1 + *fn2;
