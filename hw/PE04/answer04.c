@@ -28,18 +28,19 @@ void logFibonacci(int n, unsigned long *fn1, unsigned long *fn2)
   int m = n / 2;
   if (n % 2 == 0)	// m is even
   {
-    *fn1 += 2 * logFibonacci(m - 1, fn1, fn2) * logFibonacci(m, fn1, fn2);	// F(n)
-    *fn1 += pow(logFibonacci(m, fn1, fn2), 2);
-    *fn2 += pow(logFibonacci(m - 1, fn1, fn2), 2);	// F(n - 1)
-		*fn2 += pow(logFibonacci(m, fn1, fn2), 2);
+    // *fn1 += 2 * logFibonacci(m - 1, fn1, fn2) * logFibonacci(m, fn1, fn2);	// F(n)
+    // *fn1 += logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
+	// *fn2 += logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);	// F(n - 1)
+    // *fn2 += logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
   } 
   else	// m is odd
   {
-    *fn1 += 2 * logFibonacci(m - 2, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);	// F(n)
-    *fn1 += pow(logFibonacci(m - 1, fn1, fn2), 2);
-    *fn2 += pow(logFibonacci(m - 2, fn1, fn2), 2);	// F(n - 1)
-		*fn2 += pow(logFibonacci(m - 1, fn1, fn2), 2);
-	}
+	
+	// *fn1 += 2 * logFibonacci(m - 2, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);	// F(n)
+    // *fn1 += logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);
+	// *fn2 += logFibonacci(m - 2, fn1, fn2) * logFibonacci(m - 2, fn1, fn2);	// F(n - 1)
+    // *fn2 += logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);
+  }
 }
 
 #endif
@@ -64,13 +65,13 @@ unsigned long Fibonacci(int n)
    /* if odd n, call with n-1 or n+1, combine fn1 and fn2 as F(n) */
    if (n % 2 == 0) 
    {
-     logFibonacci(n, *fn1, *fn2);
-     return *fn1;
+     logFibonacci(n, &fn1, &fn2);
+     return fn1;
    } 
    else 
    {
-     logFibonacci(n - 1, *fn1, *fn2);
-     return *fn1 + *fn2;
+     logFibonacci(n - 1, &fn1, &fn2);
+     return fn1 + fn2;
    }
 }
 
