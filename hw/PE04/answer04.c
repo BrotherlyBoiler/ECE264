@@ -18,29 +18,25 @@ void logFibonacci(int n, unsigned long *fn1, unsigned long *fn2)
   Increment_counter();
 
   // terminating condition
-  if (n == 0) *fn1 = 0;
-  if (n == 1) *fn1 = 1;
+	unsigned long tmp1, tmp2, tmp3, tmp4;
+  if (n == 1)	{
+		*fn1 = 1;
+		*fn2 = 0;
+	}
+  if (n == 0)	{
+		*fn1 = 0;
+		*fn2 = 0;
+	}
 
   // recursion
   // you have to halve n, 
   // depending on whether n/2 is even or odd, recursively
   // call logFibonacci with appropriate parameters
   int m = n / 2;
-  if (n % 2 == 0)	// m is even
-  {
-    // *fn1 += 2 * logFibonacci(m - 1, fn1, fn2) * logFibonacci(m, fn1, fn2);	// F(n)
-    // *fn1 += logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
-	// *fn2 += logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);	// F(n - 1)
-    // *fn2 += logFibonacci(m, fn1, fn2) * logFibonacci(m, fn1, fn2);
-  } 
-  else	// m is odd
-  {
-	
-	// *fn1 += 2 * logFibonacci(m - 2, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);	// F(n)
-    // *fn1 += logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);
-	// *fn2 += logFibonacci(m - 2, fn1, fn2) * logFibonacci(m - 2, fn1, fn2);	// F(n - 1)
-    // *fn2 += logFibonacci(m - 1, fn1, fn2) * logFibonacci(m - 1, fn1, fn2);
-  }
+	logFibonacci(m, &tmp1, &tmp2);
+	logFibonacci(m - 1, &tmp3, &tmp4);
+	*fn1 += 2 * tmp3 * tmp1 + tmp1 * tmp1;
+	*fn2 += tmp3 * tmp3 + tmp1 * tmp1;
 }
 
 #endif
@@ -63,15 +59,15 @@ unsigned long Fibonacci(int n)
 
    /* if even n, call logFibonacci with n and return fn1 */
    /* if odd n, call with n-1 or n+1, combine fn1 and fn2 as F(n) */
-   if (n % 2 == 0) 
+   if (n % 2) 
    {
-     logFibonacci(n, &fn1, &fn2);
-     return fn1;
+     logFibonacci(n + 1, &fn1, &fn2);
+     return fn2;
    } 
    else 
    {
-     logFibonacci(n - 1, &fn1, &fn2);
-     return fn1 + fn2;
+     logFibonacci(n, &fn1, &fn2);
+     return fn1;
    }
 }
 
