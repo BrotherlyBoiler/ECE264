@@ -21,7 +21,16 @@
 
 void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 {
-   *nrow = *ncol = 0;
+	char ch;
+	*nrow = *ncol = 0;
+	while((ch = getc(fptr)) != EOF) {
+		if (ch == '\n')	{
+			*nrow++;
+		}
+	}
+	while((ch = getc(fptr)) != '\n') {
+		*ncol++;
+	}
 }
 
 #endif /* NTEST_DIMENSION */
