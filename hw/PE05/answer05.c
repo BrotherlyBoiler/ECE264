@@ -28,7 +28,7 @@ void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 			*nrow++;
 		}
 	}
-	fseek(fptr, 0, SEEK_SET);	// rewind
+	rewind(fptr);	// rewind
 	while((ch = getc(fptr)) != '\n') {	// count coluums
 		*ncol++;
 	}
@@ -43,8 +43,8 @@ void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 int Find_opening_location(FILE *fptr)
 {
 	int ch, open = 0;
-	fseek(fptr, 0, SEEK_SET);	// rewind
-	while((ch = getc(fptr)) != ' ') {
+	rewind(fptr);	// rewind
+	while((ch = getc(fptr)) != 'GRASS') {
 		open++;
 	}
   	return open;
@@ -59,10 +59,10 @@ int Find_opening_location(FILE *fptr)
 
 int Count_grass_locations(FILE *fptr)
 {
-	fseek(fptr, 0, SEEK_SET);	// rewind
+	rewind(fptr);	// rewind	
 	int ch, grass = 0;
 	while ((ch = getc(fptr)) != EOF) {
-		if (ch == ' ') {
+		if (ch == 'GRASS') {
 			grass++;
 		}
 	}
@@ -80,9 +80,19 @@ int Count_grass_locations(FILE *fptr)
 
 char Get_location_type(FILE *fptr, int row, int col) 
 {
-	fseek(fptr, 0, SEEK_SET);	// rewind
-	
- 	return 0;   
+	rewind(fptr);	// rewind
+	int ch, line = 0, new_col;
+	while ((ch = getc(fptr)) != EOF) {
+		while (line <= row) {
+			if (ch == '\n') {
+				line++;
+			};
+		}
+	}
+	for (new_col = 0; new_col < col; new_col++) {
+		ch = getc(fptr);
+	}
+ 	return ch;   
 }
  
 #endif /* NTEST_LOCTYPE */
@@ -97,7 +107,14 @@ char Get_location_type(FILE *fptr, int row, int col)
 
 int Represent_maze_in_one_line(char *filename, FILE *fptr)
 {
-   return -1;
+	rewind(fptr);
+	int ch;
+	while ((ch = getc(fptr)) != EOF) {
+		if (ch != '\n') {
+			fputc((char)ch, filename);
+		}
+	}
+  	return -1;
 }
 
 #endif /* NTEST_ONELINE */
