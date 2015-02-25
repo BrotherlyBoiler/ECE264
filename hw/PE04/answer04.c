@@ -17,8 +17,9 @@ void logFibonacci(int n, unsigned long *fn1, unsigned long *fn2)
 
   Increment_counter();
 
-  // terminating condition
 	unsigned long tmp1, tmp2, tmp3, tmp4;
+	
+  // terminating condition
   if (n == 1)	{
 		*fn1 = 1;
 		*fn2 = 0;

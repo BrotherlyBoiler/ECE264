@@ -30,9 +30,8 @@ int mind_guessing_rec(int lb, int ub)
                   // Please note that lb and ub could be negative numbers.
 
   // compute mid
-
   
-  mid = (lb + ub) / 2;  // this is put in for compilation.  You would have to change it.
+  mid = (lb + ub) / 2;
   
   // ask the question
   
@@ -48,14 +47,9 @@ int mind_guessing_rec(int lb, int ub)
 
     if (answer == 'N') { /* don't change this */
     	return mind_guessing_rec(lb, mid);
-    
     } else { /* don't change this */
-	return mind_guessing_rec(mid + 1, ub);
-     
+      return mind_guessing_rec(mid + 1, ub);
     }
-
-  // return mid;  // this is put in so that it would compile 
-             // you should change it to something else
 }
 
 // iterative implementation of the mind_guessing game
@@ -78,7 +72,6 @@ int mind_guessing_itr(int lb, int ub)
 
      mid = (lb + ub) / 2;  // this is put in for compilation.  You would have to change it.
 
-  
      // ask the question
   
      printf("Is the number greater than %d? (Y/N)\n", mid);
@@ -92,12 +85,9 @@ int mind_guessing_itr(int lb, int ub)
 
      if (answer == 'N') { /* don't change this */
         ub = mid - 1;
-
      } else { /* don't change this */
         lb = mid + 1;
-
      }
-
    } // end of while (....), remove comment
   return lb;  // this is put in for compilation.  You may have to change it
 }

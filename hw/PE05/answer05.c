@@ -21,14 +21,15 @@
 
 void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 {
-	char ch;
+	int ch;
 	*nrow = *ncol = 0;
-	while((ch = getc(fptr)) != EOF) {
+	while((ch = getc(fptr)) != EOF) {	// count rows
 		if (ch == '\n')	{
 			*nrow++;
 		}
 	}
-	while((ch = getc(fptr)) != '\n') {
+	fseek(fptr, 0, SEEK_SET);	// rewind
+	while((ch = getc(fptr)) != '\n') {	// count coluums
 		*ncol++;
 	}
 }
@@ -41,7 +42,12 @@ void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 
 int Find_opening_location(FILE *fptr)
 {
-   return 0;
+	int ch, open = 0;
+	fseek(fptr, 0, SEEK_SET);	// rewind
+	while((ch = getc(fptr)) != ' ') {
+		open++;
+	}
+  	return open;
 }
 
 #endif /* NTEST_OPENLOC */
@@ -53,7 +59,14 @@ int Find_opening_location(FILE *fptr)
 
 int Count_grass_locations(FILE *fptr)
 {
-   return 0;
+	fseek(fptr, 0, SEEK_SET);	// rewind
+	int ch, grass = 0;
+	while ((ch = getc(fptr)) != EOF) {
+		if (ch == ' ') {
+			grass++;
+		}
+	}
+  	return grass;
 }
 
 #endif /* NTEST_GRASSCNT */
@@ -65,8 +78,11 @@ int Count_grass_locations(FILE *fptr)
 /* The location is specified by its row-column coordinates. */
 /* The coordinates are specified by row and col */
 
-char Get_location_type(FILE *fptr, int row, int col) {
-   return 0;   
+char Get_location_type(FILE *fptr, int row, int col) 
+{
+	fseek(fptr, 0, SEEK_SET);	// rewind
+	
+ 	return 0;   
 }
  
 #endif /* NTEST_LOCTYPE */
