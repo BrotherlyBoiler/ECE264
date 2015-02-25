@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "answer05.h"
 
+void readFile(char *);
+
 int main(int argc, char *argv[])
 { 
    printf("Welcome to ECE264, we are working on PE05.\n\n");
@@ -13,9 +15,10 @@ int main(int argc, char *argv[])
    if (n < 1) {
       return EXIT_FAILURE;
    }
-   if (ato1(argv[1] == 1) {
-      Find_maze_dimensions();
-   
+   readFile(argv[1]);
+   if (atoi(argv[2]) == 1) {
+    //  Find_maze_dimensions();
+   }
    return EXIT_SUCCESS;
 }
 
@@ -28,7 +31,7 @@ void readFile(char * fileName)
       return;
    }
    while (! feof(fptr)) {
-      fscanf(fptr, "%d\n", & val);
+      fscanf(fptr, "%d\n", &val);
       printf("%d\n", val);
    }
    fclose(fptr);

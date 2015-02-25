@@ -26,12 +26,12 @@ void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 	rewind(fptr);	// reset file pointer
 	while((ch = getc(fptr)) != EOF) {	// count rows
 		if (ch == '\n')	{
-			*nrow++;
+			(*nrow)++;
 		}
 	}
 	rewind(fptr);
 	while((ch = getc(fptr)) != '\n') {	// count columns
-		*ncol++;
+		(*ncol)++;
 	}
 }
 
@@ -45,7 +45,7 @@ int Find_opening_location(FILE *fptr)
 {
 	int ch, open = 0;
 	rewind(fptr);
-	while((ch = getc(fptr)) != 'GRASS') {
+	while((ch = getc(fptr)) != GRASS) {
 		open++;
 	}
   	return open;
@@ -63,7 +63,7 @@ int Count_grass_locations(FILE *fptr)
 	rewind(fptr);	
 	int ch, grass = 0;
 	while ((ch = getc(fptr)) != EOF) {
-		if (ch == 'GRASS') {
+		if (ch == GRASS) {
 			grass++;
 		}
 	}
@@ -112,7 +112,7 @@ int Represent_maze_in_one_line(char *filename, FILE *fptr)
 	int ch;
 	while ((ch = getc(fptr)) != EOF) {
 		if (ch != '\n') {
-			fputc((char)ch, filename);
+			putc(ch, *filename);
 		}
 	}
   	return -1;
