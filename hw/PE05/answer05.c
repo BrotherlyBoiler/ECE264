@@ -87,7 +87,7 @@ char Get_location_type(FILE *fptr, int row, int col)
 		while (line <= row) {
 			if (ch == '\n') {
 				line++;
-			};
+			}
 		}
 	}
 	for (new_col = 0; new_col < col; new_col++) {
