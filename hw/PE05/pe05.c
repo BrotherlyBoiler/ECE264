@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
    if (n < 1) {
       return EXIT_FAILURE;
    }
-   int nrow, ncol;
+   int nrow = EX_ROW, ncol = EX_COL;
    FILE *fptr = fopen(argv[1], "r");
    // readFile((char *)fptr);
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
    else if (n == 5) {
       char *newfile = NULL;
       printf("Enter new file name: ");
-      gets(newfile);
+      fgets(newfile, sizeof(newfile), stdin);
       FILE *fptr2 = fopen(argv[1], "r+");
       Represent_maze_in_one_line(newfile, fptr);
       fclose(fptr2);
