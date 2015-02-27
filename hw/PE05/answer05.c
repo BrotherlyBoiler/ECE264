@@ -112,7 +112,7 @@ int Represent_maze_in_one_line(char *filename, FILE *fptr)
 	int ch;
 	while ((ch = getc(fptr)) != EOF) {
 		if (ch != '\n') {
-			putc(ch, *filename);
+			putc(ch, (FILE *)filename);
 		}
 	}
   	return -1;
