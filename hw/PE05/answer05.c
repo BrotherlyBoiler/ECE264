@@ -82,16 +82,21 @@ int Count_grass_locations(FILE *fptr)
 char Get_location_type(FILE *fptr, int row, int col) 
 {
 	rewind(fptr);
-	int ch, line = 0, new_col;
-	while ((ch = getc(fptr)) != EOF) {
-		while (line <= row) {
+	int ch = -1, line = 0, new_col;
+	if (row != 0) {
+		while ((ch = getc(fptr)) != EOF) {
 			if (ch == '\n') {
 				line++;
+				if (line == row) {
+					break;
+				}
 			}
 		}
 	}
-	for (new_col = 0; new_col < col; new_col++) {
-		ch = getc(fptr);
+	if (col != 0) {
+		for (new_col = 0; new_col < col; new_col++) {
+			ch = getc(fptr);
+		}
 	}
  	return ch;   
 }
@@ -109,13 +114,19 @@ char Get_location_type(FILE *fptr, int row, int col)
 int Represent_maze_in_one_line(char *filename, FILE *fptr)
 {
 	rewind(fptr);
-	int ch;
+	FILE *fptr2 = fopen(filename, "w");
+	int ch, w_fail, w_cnt = 0;
 	while ((ch = getc(fptr)) != EOF) {
 		if (ch != '\n') {
-			putc(ch, (FILE *)filename);
+			w_fail = fputc(ch, fptr2);
+			w_cnt++;
 		}
 	}
-  	return -1;
+	fclose(fptr2);
+	if (w_fail != (int)ch) {
+		return -1;
+	}
+	return w_cnt;
 }
 
 #endif /* NTEST_ONELINE */
