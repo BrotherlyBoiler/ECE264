@@ -62,7 +62,9 @@ long int my_strtol(const char *nptr, char **endptr, int base)
 
    // if encounter a sign, expect a number after that 
    // if a negative sign is encountered, change the sign
-  if (ptr[0] == '+') ptr++;
+  if (ptr[0] == '+') {
+      ptr++;
+  }
   else if (ptr[0] == '-') {
       neg = -1;
       ptr++;
@@ -116,8 +118,7 @@ long int my_strtol(const char *nptr, char **endptr, int base)
   //Set *endptr to first invalid character
   if (len < 1) {
     *endptr = (char *) ptr; 
-  }
-  else {
+  } else {
     *endptr = (char *) (ptr + len);
   }
 
