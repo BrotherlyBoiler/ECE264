@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "answer05.h"
 
-#define EX_ROW 0
-#define EX_COL 0
+#define EX_ROW 3
+#define EX_COL 4
 
 int main(int argc, char *argv[])
 { 

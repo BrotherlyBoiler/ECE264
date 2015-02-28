@@ -24,13 +24,13 @@ void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 	int ch;
 	*nrow = *ncol = 0;
 	rewind(fptr);	// reset file pointer
-	while((ch = getc(fptr)) != EOF) {	// count rows
+	while((ch = fgetc(fptr)) != EOF) {	// count rows
 		if (ch == '\n')	{
 			(*nrow)++;
 		}
 	}
 	rewind(fptr);
-	while((ch = getc(fptr)) != '\n') {	// count columns
+	while((ch = fgetc(fptr)) != '\n') {	// count columns
 		(*ncol)++;
 	}
 }
@@ -45,10 +45,10 @@ int Find_opening_location(FILE *fptr)
 {
 	int ch, open = 0;
 	rewind(fptr);
-	while((ch = getc(fptr)) != GRASS) {
+	while((ch = fgetc(fptr)) != GRASS) {
 		open++;
 	}
-  	return open;
+  return open;
 }
 
 #endif /* NTEST_OPENLOC */
@@ -62,7 +62,7 @@ int Count_grass_locations(FILE *fptr)
 {
 	rewind(fptr);	
 	int ch, grass = 0;
-	while ((ch = getc(fptr)) != EOF) {
+	while ((ch = fgetc(fptr)) != EOF) {
 		if (ch == GRASS) {
 			grass++;
 		}
@@ -84,7 +84,7 @@ char Get_location_type(FILE *fptr, int row, int col)
 	rewind(fptr);
 	int ch = -1, line = 0, new_col;
 	if (row != 0) {
-		while ((ch = getc(fptr)) != EOF) {
+		while ((ch = fgetc(fptr)) != EOF) {
 			if (ch == '\n') {
 				line++;
 				if (line == row) {
@@ -116,16 +116,17 @@ int Represent_maze_in_one_line(char *filename, FILE *fptr)
 	rewind(fptr);
 	FILE *fptr2 = fopen(filename, "w");
 	int ch, w_fail, w_cnt = 0;
-	while ((ch = getc(fptr)) != EOF) {
+	while ((ch = fgetc(fptr)) != EOF) {
 		if (ch != '\n') {
 			w_fail = fputc(ch, fptr2);
+			if (w_fail != (int)ch) {
+				return -1;
+			}
 			w_cnt++;
 		}
 	}
 	fclose(fptr2);
-	if (w_fail != (int)ch) {
-		return -1;
-	}
+
 	return w_cnt;
 }
 
