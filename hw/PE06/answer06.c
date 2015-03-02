@@ -106,10 +106,10 @@ int Write_maze_to_2Dfile(char *filename, char **maze, int nrow, int ncol)
 		for (j = 0; i < ncol; ++j) {
 			curr = maze[i][j];
 			next = maze[i][j + 1];
-			wstat = fputc((int)curr, fptr);
 			if (curr == GRASS && next == CORN) {
 				wcnt++;
 			}
+			wstat = fputc((int)curr, fptr);
 			if (wstat != (int)curr) {   // failed to write
 				return -1;
 			}
@@ -137,8 +137,20 @@ int Write_maze_to_2Dfile(char *filename, char **maze, int nrow, int ncol)
 
 char **Expand_maze_row(char **maze, int nrow, int ncol, int *rrow, int *rcol)
 {
-   *rrow = *rcol = 0;
-   return NULL;
+	*rrow = 2 * nrow - 1;
+	*rcol = ncol;
+	int i, j;
+	char **rmaze = Allocate_maze_space(*nrow - nrow, *ncol);
+	rewind(fptr);
+	for (i = 0; i < *nrow; ++i) {
+		for (j = 0; i < *ncol; ++j) {
+			do {
+				maze[i][j] = fgetc(fptr);
+			} while (maze[i][j] == '\n');
+		}
+	}
+	return maze;
+	return NULL;
 }
 
 #endif /* NTEST_EXPANDROW */
@@ -165,7 +177,8 @@ char **Expand_maze_row(char **maze, int nrow, int ncol, int *rrow, int *rcol)
 
 char **Expand_maze_column(char **maze, int nrow, int ncol, int *crow, int *ccol)
 {
-   *crow = *ccol = 0;
+   *crow = nrow;
+   *ccol = 2 * ncol - 1;
    return NULL;
 }
 
