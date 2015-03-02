@@ -98,7 +98,7 @@ char Get_location_type(FILE *fptr, int row, int col)
 			ch = getc(fptr);
 		}
 	}
- 	return ch;   
+ 	return (char)ch;   
 }
  
 #endif /* NTEST_LOCTYPE */

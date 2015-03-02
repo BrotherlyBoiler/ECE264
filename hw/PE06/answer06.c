@@ -4,7 +4,23 @@
 
 // if you want to declare and define new functions, put them here
 // or at the end of the file
+void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol);
 
+void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
+{
+	int ch;
+	*nrow = *ncol = 0;
+	rewind(fptr);	// reset file pointer
+	while((ch = fgetc(fptr)) != EOF) {	// count rows
+		if (ch == '\n')	{
+			(*nrow)++;
+		}
+	}
+	rewind(fptr);
+	while((ch = fgetc(fptr)) != '\n') {	// count columns
+		(*ncol)++;
+	}
+}
 
 // do not remove #ifndef and #endif in this file, otherwise the evaluation
 // would fail and you would definitely get 0
@@ -19,7 +35,19 @@
 
 char **Allocate_maze_space(int nrow, int ncol)
 {
-   return NULL;
+	char **maze, 
+	maze = (char **)malloc(nrow * sizeof(char *));
+	if (maze == NULL) {
+		return NULL;
+	}
+	for (int i = 0; i < nrow; i++) {
+		maze[i] = (char *)malloc(ncol * sizeof(char));
+		if (maze[i] == NULL) {
+			free(maze);
+			return NULL;
+		}
+	}
+	return maze;
 }
 
 #endif /* NTEST_ALLOC */
@@ -31,7 +59,11 @@ char **Allocate_maze_space(int nrow, int ncol)
 
 void Deallocate_maze_space(char **maze, int nrow) 
 {
-   return;
+	int i;
+    for(i = 0; i < nrow; i++) {
+    	free(maze[i]);
+    }
+    free(maze);
 }
 
 #endif /* NTEST_DEALLOC */
@@ -43,8 +75,19 @@ void Deallocate_maze_space(char **maze, int nrow)
 
 char **Read_maze_from_2Dfile(FILE *fptr, int *nrow, int *ncol)
 {
-   *nrow = *ncol = 0;
-   return NULL;
+	*nrow = *ncol = 0;
+	int i, j;
+	Find_maze_dimensions(fptr, nrow, ncol);
+	char **maze = Allocate_maze_space(*nrow, *ncol);
+	rewind(fptr);
+	for (i = 0; i < *nrow; ++i) {
+		for (j = 0; i < *ncol; ++j) {
+			do {
+				maze[i][j] = fgetc(fptr);
+			} while (maze[i][j] == '\n');
+		}
+	}
+	return maze;
 }
 
 #endif /* NTEST_READ2D */
@@ -56,7 +99,26 @@ char **Read_maze_from_2Dfile(FILE *fptr, int *nrow, int *ncol)
 
 int Write_maze_to_2Dfile(char *filename, char **maze, int nrow, int ncol) 
 {
-   return -1;
+	FILE *fptr = fopen(filename, "w");
+	int i, j, wstat, wcnt = 0;
+	char curr, next;
+	for (i = 0; i < nrow; ++i) {
+		for (j = 0; i < ncol; ++j) {
+			curr = maze[i][j];
+			next = maze[i][j + 1];
+			wstat = fputc((int)curr, fptr);
+			if (curr == GRASS && next == CORN) {
+				wcnt++;
+			}
+			if (wstat != (int)curr) {   // failed to write
+				return -1;
+			}
+		}
+		fputc((int)'\n', fptr);   //create new line in file
+		wcnt++;
+	}
+	fclose(fptr);
+	return wcnt;
 }
 
 #endif /* NTEST_WRITE2D */
