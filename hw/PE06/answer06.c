@@ -4,6 +4,7 @@
 
 // if you want to declare and define new functions, put them here
 // or at the end of the file
+
 void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol);
 
 void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
@@ -114,7 +115,7 @@ int Write_maze_to_2Dfile(char *filename, char **maze, int nrow, int ncol)
 				return -1;
 			}
 		}
-		fputc((int)'\n', fptr);   //create new line in file
+		fputc((int)'\n', fptr);   //create new row in file
 		wcnt++;
 	}
 	fclose(fptr);
@@ -139,18 +140,26 @@ char **Expand_maze_row(char **maze, int nrow, int ncol, int *rrow, int *rcol)
 {
 	*rrow = 2 * nrow - 1;
 	*rcol = ncol;
-	int i, j;
-	char **rmaze = Allocate_maze_space(*nrow - nrow, *ncol);
-	rewind(fptr);
-	for (i = 0; i < *nrow; ++i) {
-		for (j = 0; i < *ncol; ++j) {
-			do {
-				maze[i][j] = fgetc(fptr);
-			} while (maze[i][j] == '\n');
+	int i, j, inc = nrow + 1;
+	char **rmaze;
+	rmaze = Allocate_maze_space(*rrow, *rcol);
+	if (rmaze == NULL) {
+		return NULL;
+	}
+	/* copy from input maze */
+	for (i = 0; i < nrow; ++i) {
+		for (j = 0; i < ncol; ++j) {
+			rmaze[i][j] = maze[i][j];
 		}
 	}
-	return maze;
-	return NULL;
+	/* copy reflection from input maze */
+	for (i = nrow - 1; i > 0; --i) {
+		for (j = 0; i < ncol; ++j) {
+			rmaze[inc][j] = maze[i][j];
+			inc++;
+		}
+	}
+	return rmaze;
 }
 
 #endif /* NTEST_EXPANDROW */
@@ -177,9 +186,28 @@ char **Expand_maze_row(char **maze, int nrow, int ncol, int *rrow, int *rcol)
 
 char **Expand_maze_column(char **maze, int nrow, int ncol, int *crow, int *ccol)
 {
-   *crow = nrow;
-   *ccol = 2 * ncol - 1;
-   return NULL;
+	*crow = nrow;
+	*ccol = 2 * ncol - 1;
+	int i, j, inc = ncol + 1;
+	char **cmaze;
+	cmaze = Allocate_maze_space(*crow, *ccol);
+	if (cmaze == NULL) {
+		return NULL;
+	}
+	/* copy from input maze */
+	for (i = 0; i < nrow; ++i) {
+		for (j = 0; i < ncol; ++j) {
+			cmaze[i][j] = maze[i][j];
+		}
+	}
+	/* copy reflection from input maze */
+	for (i = 0; i < nrow; ++i) {
+		for (j = ncol - 1; i > 0; --j) {
+			cmaze[i][inc] = maze[i][j];
+			inc++;
+		}
+	}
+	return cmaze;
 }
 
 #endif /* NTEST_EXPANDCOL */
