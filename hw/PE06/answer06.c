@@ -140,7 +140,7 @@ char **Expand_maze_row(char **maze, int nrow, int ncol, int *rrow, int *rcol)
 {
 	*rrow = 2 * nrow - 1;
 	*rcol = ncol;
-	int i, j, inc = nrow + 1;
+	int i, j, inc;
 	char **rmaze;
 	rmaze = Allocate_maze_space(*rrow, *rcol);
 	if (rmaze == NULL) {
@@ -154,6 +154,7 @@ char **Expand_maze_row(char **maze, int nrow, int ncol, int *rrow, int *rcol)
 	}
 	/* copy reflection from input maze */
 	for (i = nrow - 1; i > 0; --i) {
+		inc = nrow + 1;
 		for (j = 0; i < ncol; ++j) {
 			rmaze[inc][j] = maze[i][j];
 			inc++;
@@ -188,7 +189,7 @@ char **Expand_maze_column(char **maze, int nrow, int ncol, int *crow, int *ccol)
 {
 	*crow = nrow;
 	*ccol = 2 * ncol - 1;
-	int i, j, inc = ncol + 1;
+	int i, j, inc;
 	char **cmaze;
 	cmaze = Allocate_maze_space(*crow, *ccol);
 	if (cmaze == NULL) {
@@ -202,6 +203,7 @@ char **Expand_maze_column(char **maze, int nrow, int ncol, int *crow, int *ccol)
 	}
 	/* copy reflection from input maze */
 	for (i = 0; i < nrow; ++i) {
+		inc = ncol + 1;
 		for (j = ncol - 1; i > 0; --j) {
 			cmaze[i][inc] = maze[i][j];
 			inc++;
