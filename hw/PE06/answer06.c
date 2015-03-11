@@ -54,7 +54,6 @@ char **Allocate_maze_space(int nrow, int ncol)
 #endif /* NTEST_ALLOC */
 
 #ifndef NTEST_DEALLOC
-
 // free the memory used for the maze
 // you may assume that maze is not NULL, and all memory addresses are valid
 
