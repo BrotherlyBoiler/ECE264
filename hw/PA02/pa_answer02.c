@@ -7,24 +7,27 @@ char **Allocate_maze_space(int nrow, int ncol);
 void Deallocate_maze_space(char **maze, int nrow);
 char **Read_maze_from_2Dfile(FILE *fptr, int *nrow, int *ncol);
 int Find_opening_location(FILE *fptr);
+int Write_maze_to_2Dfile(char *filename, char **maze, int nrow, int ncol);
+void Copy_maze(char **m1, char **m2, int nrow, int ncol);
 
 void Get_mowing_directions(char *mazefile, char *directionfile)
 {
 	int *nrow = 0,  *ncol = 0, i, j
 	FILE *mptr = fopen(mazefile, "r");		// open mazefile for reading
-	if (mptr == 0) {
-		return;
-	}
+	if (mptr == 0) return;
 	FILE *dptr = fopen(directionfile, "w");	// open directionfile for writing
+	
 	Find_maze_dimensions(mptr, nrow, ncol);
 	char **maze = Allocate_maze_space(*nrow, *ncol);
-	**maze = Read_maze_from_2Dfile(mptr, nrow, ncol);
+	maze = Read_maze_from_2Dfile(mptr, nrow, ncol);
 	int openloc = Find_opening_location(mptr);
+
 	char curr, start = maze[0][openloc];
 	for (i = 1; i < *nrow; ++i) {
 		for (j = 0; j < *ncol; ++j) {
-			while (maze[i][j] == GRASS) {
-				
+			curr = maze[i][j];
+			while (curr == GRASS) {
+				if () 
 			}
 		}
 	}
@@ -36,7 +39,45 @@ void Get_mowing_directions(char *mazefile, char *directionfile)
 
 int Simulate_mowing(char *mazefile, char *directionfile, char *mowedfile)
 {
+	int *nrow = 0,  *ncol = 0, r = 1, c = 0, ch;
+	FILE *mptr = fopen(mazefile, "r");		// open mazefile for reading
+	if (mptr == 0) return;
+	FILE *dptr = fopen(directionfile, "r");	// open directionfile for reading
+	if (dptr == 0) return;
+	FILE *nptr = fopen(mowedfile, "w");
+	
+	Find_maze_dimensions(mptr, nrow, ncol);
+	char **maze = Allocate_maze_space(*nrow, *ncol);
+	if (maze == NULL) return -1;
+	char **nmaze = Allocate_maze_space(*nrow, *ncol);
+	if (nmaze == NULL) return -1;
+	maze = Read_maze_from_2Dfile(mptr, nrow, ncol);
+	Copy_maze(maze, nmaze);		// 'nmaze = maze'
+	
+	int open = Find_opening_location(mptr);	// open location in first column
+	nmaze[0][open] = MOWED;
+	while((ch = fgetc(dptr) != EOF) {
+		if (ch == (int)'S') {
+			++r;
+			nmaze[r][c] = MOWED;
+		}
+		else if (ch == (int)'E') {
+			++c;
+			nmaze[r][c] = MOWED;
+		}
+		else if (ch == (int)'N') {
+			--r;
+			nmaze[r][c] = MOWED;
+		}
+		else if (ch == (int)'W') {
+			--c;
+			nmaze[r][c] = MOWED;
+		}
+	}
 
+	int wc = Write_maze_to_2Dfile(mowedfile, nmaze, *nrow, *ncol);
+	if (!wc) return;	// ?? better way to evaluate wc?
+	Deallocate_maze_space(maze, *nrow);
 }
 
 void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
@@ -145,4 +186,15 @@ int Find_opening_location(FILE *fptr)
 		open++;
 	}
   return open;
+}
+
+/* Copy the contents of m1(original maze) to m2(duplicate maze) */
+
+void Copy_maze(char **m1, char **m2, int nrow, int ncol)
+{
+	for (int i = 0; i < nrow; ++i) {
+		for (int j = 0; j < ncol + 1; ++j) {
+			m2[i][j] = m1[i][j];
+		}
+	}
 }
