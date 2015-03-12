@@ -74,7 +74,7 @@ int Simulate_mowing(char *mazefile, char *directionfile, char *mowedfile)
 			nmaze[r][c] = MOWED;
 		}
 	}
-
+	/* Write nmaze to movedfile */
 	int wc = Write_maze_to_2Dfile(mowedfile, nmaze, *nrow, *ncol);
 	if (!wc) return;	// ?? better way to evaluate wc?
 	Deallocate_maze_space(maze, *nrow);
@@ -169,7 +169,7 @@ int Write_maze_to_2Dfile(char *filename, char **maze, int nrow, int ncol)
 				return -1;
 			}
 		}
-		fputc((int)'\n', fptr);   //create new row in file
+		fputc(0xA, fptr);   //create new row in file
 		wcnt++;
 	}
 	fclose(fptr);
