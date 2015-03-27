@@ -266,9 +266,6 @@ Return EXIT_SUCCESS only if it is a successful cropping.
 You are responsible for opening and closing files, allocating and deallocating
 memory.
 
-There may be many other functions that would be useful to your program.
-You may declare and define them in pa03.c
-
 // ~ error messages ~ //
 
 If you want to print error messages, use one of the following statements
