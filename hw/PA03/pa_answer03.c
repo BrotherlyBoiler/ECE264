@@ -7,10 +7,11 @@
 
 double **Allocate_matrix_space(int size)
 {
+	int i;
 	double **mat = (double **)malloc(size * sizeof(double *));
 	if (mat == NULL)
 		return NULL;
-	for (int i = 0; i < size; i++) 
+	for (i = 0; i < size; i++) 
 	{
 		mat[i] = (double *)malloc(size * sizeof(double));
 		if (mat[i] == NULL) 
@@ -24,9 +25,10 @@ double **Allocate_matrix_space(int size)
 
 /* free the memory used for the maze */
 
-void Deallocate_maze_space(char **matrix, int size) 
+void Deallocate_maze_space(double **matrix, int size) 
 {
-    for (int i = 0; i < size; i++) 
+	int i;
+    for (i = 0; i < size; i++) 
     {
     	free(matrix[i]);
     }
@@ -52,10 +54,11 @@ void Find_matrix_size(FILE *fptr, int *size)
 
 double **Make_identity_matrix(int size)
 {
+	int i, j;
 	double **id_mat = Allocate_matrix_space(size);
-	for (int i = 0; i < size; ++i)
+	for (i = 0; i < size; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (j = 0; j < size; ++j)
 		{
 			if (i == j) 
 				id_mat[i][j] = 1;
@@ -68,9 +71,10 @@ double **Make_identity_matrix(int size)
 
 int Is_identity_matrix(double **matrix, int size)
 {
-	for (int i = 0; i < size; ++i)
+	int i, j;
+	for (i = 0; i < size; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (j = 0; j < size; ++j)
 		{
 			if (i == j)
 			{
@@ -79,7 +83,7 @@ int Is_identity_matrix(double **matrix, int size)
 			}
 			else
 			{
-				if (!(Is_zero(matrix[i][j]))
+				if (!(Is_zero(matrix[i][j])))
 					return 0;
 			}
 		}
@@ -108,7 +112,6 @@ int Is_zero(double value)
 double **Read_matrix_from_file(char *filename, int *size)
 {
 	*size = 0;
-	int i, j;
 	FILE *fptr = fopen(filename, "r");
 	if (fptr == NULL)
 	{
@@ -142,7 +145,7 @@ int Write_matrix_to_file(char *filename, double **matrix, int size)
 	int n_write = fwrite(matrix, sizeof(double), size * size, fptr);
 	fprintf(stderr, "%d successfully written to file\n", n_write);
 	fclose(fptr);
-	if (nwrite == size * size) 
+	if (n_write == size * size) 
 		return 1;
 	else 
 		return 0;
@@ -185,7 +188,7 @@ double **Invert_matrix(double **matrix, int size)
 	      if (tem > temp)
 	      {
 	         p = j;
-	         temp = a[j][i];
+	         temp = matrix[j][i];
 	      }
 	   }
 
@@ -217,7 +220,7 @@ double **Invert_matrix(double **matrix, int size)
 	   {
 	      if (q == i)
 	         continue;
-	      temp5 = a[q][i];
+	      temp5 = matrix[q][i];
 	      for (j = 0; j < size; ++j)
 	      {
 	         matrix[q][j] = matrix[q][j] - (temp5 * matrix[i][j]);
@@ -239,6 +242,7 @@ double **Invert_matrix(double **matrix, int size)
 
 double **Matrix_matrix_multiply(double **matrixa, double **matrixb, int size)
 {
+	int i, j, k;
 	double temp = 0;
 	double **mul_mat = Allocate_matrix_space(size);
 	if (mul_mat == NULL)
@@ -246,11 +250,11 @@ double **Matrix_matrix_multiply(double **matrixa, double **matrixb, int size)
 		fprintf(stderr, "cannot allocate matrix space for mul_mat\n");
 		return NULL;
 	}
-	for (int i = 0; i < size; ++i)
+	for (i = 0; i < size; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (j = 0; j < size; ++j)
 		{
-			for (int k = 0; k < size; ++k)
+			for (k = 0; k < size; ++k)
 			{
 				temp += matrixa[j][k] * matrixb[k][i];
 			}
@@ -269,14 +273,15 @@ double Deviation_from_identity(double **matrix, int size)
 {
 	if (matrix == NULL)
 	{
-		fprintf(stderr, "Deviation_from_identity: input matrix invalid\n", );
-		return NULL;
+		fprintf(stderr, "Deviation_from_identity: input matrix invalid\n");
+		return *(double *)NULL;
 	}
+	int i, j;
 	double deviation = 0;
 	double **id_mat = Make_identity_matrix(size);
-	for (int i = 0; i < size; ++i)
+	for (i = 0; i < size; ++i)
 	{
-		for (int j = 0; j < size; ++j)
+		for (j = 0; j < size; ++j)
 		{
 			deviation += matrix[i][j] - id_mat[i][j];
 		}

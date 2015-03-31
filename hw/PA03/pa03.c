@@ -4,10 +4,10 @@
 
 int main(int argc, char *argv[])
 {
-   int *size;
+   int *size = 0;
 
    /* Perform inversion */
-   if (agrc == 4)
+   if (argc == 4)
    {
       if (argv[1][0] == '-' && argv[1][1] == 'i')
       {
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
          }
          double deviation = Deviation_from_identity(matrix, *size);
          Deallocate_maze_space(matrix, *size);
-         if (deviation != NULL)
+         if (deviation != *(double *)NULL)
          {
             printf("%e\n", deviation);
             return EXIT_SUCCESS;
@@ -114,4 +114,5 @@ int main(int argc, char *argv[])
       fprintf(stderr, "invalid input arguments\n");
       return EXIT_FAILURE;
    }
+   return EXIT_SUCCESS;
 }
