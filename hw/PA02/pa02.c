@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 { 
-   if (argc < 3) {
+   if (argc < 2) {
       return EXIT_FAILURE;
    }
    int nrow = EX_ROW, ncol = EX_COL;

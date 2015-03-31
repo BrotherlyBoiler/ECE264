@@ -55,8 +55,8 @@ where A^(-1) is the inverse of A.
 Here is an example given in the aforementioned website:
 
 Given a 3x3 A = 	[ 3 0  2 ]
-			[ 2 0 -2 ]
-			[ 0 1  1 ]
+			         [ 2 0 -2 ]
+			         [ 0 1  1 ]
 
 The augmented matrix is (we will remove the square brackets for ease of
 presentation)

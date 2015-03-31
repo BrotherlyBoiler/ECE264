@@ -3,6 +3,11 @@
 
 /* add your function declarations after this line */
 
+void Find_matrix_size(FILE *fptr, int *nrow);
+double **Allocate_matrix_space(int size);
+double **Make_identity_matrix(int size);
+void Deallocate_maze_space(double **matrix, int size);
+int Is_identity_matrix(double**matrix, int size);
 
 /* add your function declarations before this line */
 
