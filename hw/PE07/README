@@ -128,7 +128,7 @@ each row to be padded at the end such that each row is represented by multiples
 of 4 bytes of data.  For example, if there is only one pixel in each row,
 we need an additional byte to pad a row.  If there are two pixels per row,
 2 additional bytes.  If there are three pixels per row, 3 additional bytes.
-If there are four pixels per row, we don't have too perform padding.
+If there are four pixels per row, we don't have to perform padding.
 We REQUIRE you to assign value 0 to each of the padding byte.
 
 The height field gives you the number of rows.  Row 0 is the bottom of the
@@ -245,7 +245,7 @@ two options argv[1]:
       If argv[2] does not provide you a valid BMP file, you should not
       produce a new BMP file, and you should return EXIT_FAILURE.
 
-"-t": to produce a new BMP file (argv[3]) that contains the left half 
+"-l": to produce a new BMP file (argv[3]) that contains the left half 
       of the image in argv[2].
       If argv[2] does not provide you a valid BMP file, you should not
       produce a new BMP file, and you should return EXIT_FAILURE.

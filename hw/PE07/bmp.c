@@ -61,15 +61,25 @@ int Is_BMP_Header_Valid(BMP_Header* header, FILE *fptr) {
   // fill in extra to check for file size, image size
   // based on bits, width, and height
 
+  // file size in bytes
+  if (header->size != 54) {
+    return FALSE;
+  }
 
+  // image size in bytes
+  if (header->imagesize != 54) {
+    return FALSE;
+  }
 
+  // width of the image
+  if (header->width != ???) {
+    return FALSE;
+  }
 
-
-
-
-
-
-
+  // height of the image
+  if (header->height != ???) {
+    return FALSE;
+  }
 
   return TRUE;
 }
