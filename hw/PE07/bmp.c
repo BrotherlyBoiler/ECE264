@@ -72,12 +72,12 @@ int Is_BMP_Header_Valid(BMP_Header* header, FILE *fptr) {
   }
 
   // width of the image
-  if (header->width != ???) {
+  if (header->width != 54) {
     return FALSE;
   }
 
   // height of the image
-  if (header->height != ???) {
+  if (header->height != 54) {
     return FALSE;
   }
 
